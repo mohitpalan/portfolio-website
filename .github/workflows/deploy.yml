@@ -41,6 +41,7 @@ jobs:
 
       - name: Deploy to web root
         run: |
+          sudo mkdir -p ${{ env.DEPLOY_DIR }}
           sudo rm -rf ${{ env.DEPLOY_DIR }}/*
           sudo cp -r dist/* ${{ env.DEPLOY_DIR }}/
           sudo chown -R nginx:nginx ${{ env.DEPLOY_DIR }}
