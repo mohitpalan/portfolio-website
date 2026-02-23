@@ -1,0 +1,70 @@
+# ============================================
+# Deploy Portfolio Website to VPS
+# Builds static site on GitHub runner, then
+# deploys to /var/www/portfolio via SCP + SSH
+# ============================================
+
+name: Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+  DEPLOY_DIR: /var/www/portfolio
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "dist/"
+          target: "/tmp/deploy-portfolio"
+          rm: true
+
+      - name: Deploy to web root
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            sudo rsync -a --delete /tmp/deploy-portfolio/dist/ ${{ env.DEPLOY_DIR }}/
+            sudo chown -R nginx:nginx ${{ env.DEPLOY_DIR }}
+            rm -rf /tmp/deploy-portfolio
+            echo "Portfolio deployed successfully!"
+
+      - name: Health check
+        run: |
+          sleep 5
+          STATUS=$(curl -sf -o /dev/null -w "%{http_code}" https://mohitpalan.me/health || echo "000")
+          if [ "$STATUS" = "200" ]; then
+            echo "Health check passed!"
+          else
+            echo "Health check returned $STATUS (site may need DNS/Cloudflare setup)"
+          fi
