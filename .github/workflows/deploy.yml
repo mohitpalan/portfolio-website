@@ -1,7 +1,6 @@
 # ============================================
-# Deploy Portfolio Website to VPS
-# Builds static site on GitHub runner, then
-# deploys to /var/www/portfolio via SCP + SSH
+# Deploy Portfolio Website to /var/www/portfolio
+# Uses self-hosted runner on VPS (no SSH/secrets needed)
 # ============================================
 
 name: Deploy Portfolio
@@ -12,24 +11,27 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20'
   DEPLOY_DIR: /var/www/portfolio
 
 jobs:
   deploy:
     name: Build & Deploy
-    runs-on: ubuntu-latest
-    environment: production
+    runs-on: self-hosted
 
     steps:
+      - name: Show deployment info
+        run: |
+          echo "Deploying Portfolio Website"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm ci
@@ -37,34 +39,26 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload build to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "dist/"
-          target: "/tmp/deploy-portfolio"
-          rm: true
-
       - name: Deploy to web root
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            sudo rsync -a --delete /tmp/deploy-portfolio/dist/ ${{ env.DEPLOY_DIR }}/
-            sudo chown -R nginx:nginx ${{ env.DEPLOY_DIR }}
-            rm -rf /tmp/deploy-portfolio
-            echo "Portfolio deployed successfully!"
+        run: |
+          sudo rsync -a --delete dist/ ${{ env.DEPLOY_DIR }}/
+          sudo chown -R nginx:nginx ${{ env.DEPLOY_DIR }}
+          echo "Deployed to ${{ env.DEPLOY_DIR }}"
 
       - name: Health check
         run: |
-          sleep 5
-          STATUS=$(curl -sf -o /dev/null -w "%{http_code}" https://mohitpalan.me/health || echo "000")
-          if [ "$STATUS" = "200" ]; then
-            echo "Health check passed!"
-          else
-            echo "Health check returned $STATUS (site may need DNS/Cloudflare setup)"
+          if curl -sf http://localhost/health > /dev/null 2>&1; then
+            echo "Local health check passed!"
           fi
+          sleep 3
+          if curl -sf https://mohitpalan.me/health > /dev/null 2>&1; then
+            echo "Public health check passed!"
+          else
+            echo "Public endpoint not reachable (may need DNS/Cloudflare setup)"
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Deployment failed!"
+          echo "Check logs above for details."
