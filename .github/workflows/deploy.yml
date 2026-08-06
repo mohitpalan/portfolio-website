@@ -28,22 +28,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
       - name: Deploy to web root
         run: |
           sudo mkdir -p ${{ env.DEPLOY_DIR }}
           sudo rm -rf ${{ env.DEPLOY_DIR }}/*
-          sudo cp -r dist/* ${{ env.DEPLOY_DIR }}/
+          sudo cp index.html styles.css script.js ${{ env.DEPLOY_DIR }}/
           sudo chown -R nginx:nginx ${{ env.DEPLOY_DIR }}
           echo "Deployed to ${{ env.DEPLOY_DIR }}"
 
