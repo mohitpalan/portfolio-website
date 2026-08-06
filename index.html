@@ -66,6 +66,12 @@
               </a>
             </li>
             <li>
+              <a href="#experience">
+                <span class="h-num">3.5+</span>
+                <span class="h-lbl">Years of industrial experience</span>
+              </a>
+            </li>
+            <li>
               <a href="#work">
                 <span class="h-num">6</span>
                 <span class="h-lbl">Platforms built 0 to 1: payment routing, a merchant data platform, buyer care, onboarding, and a support chatbot</span>
@@ -102,20 +108,6 @@
               a support chatbot, and systems that now handle a large share of
               a major support queue on their own.
             </p>
-            <div class="about-facts">
-              <div class="fact">
-                <span class="fact-label">Education</span>
-                <span class="fact-value">B.E., Electrical &amp; Electronics<br />Ramaiah Institute of Technology, 2023</span>
-              </div>
-              <div class="fact">
-                <span class="fact-label">Based in</span>
-                <span class="fact-value">Bangalore, India</span>
-              </div>
-              <div class="fact">
-                <span class="fact-label">Recognition</span>
-                <span class="fact-value">PayU Rising Star Award, 2× Quarterly Ace Award, 2× Extra Mile Award</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -185,10 +177,12 @@
               <p class="case-copy">
                 PayU's Merchant Care queue was handling tens of thousands of
                 tickets a month by hand. I led the end-to-end build of a GenAI
-                system: RAG pipelines, AI agents, and the AWS infrastructure and
-                CI/CD behind them, automating responses for roughly 75% of
-                cases and a large share of support email, cutting turnaround
-                from 72 hours to under 2.
+                system on top of early versions of AWS Bedrock and Google ADK,
+                later replacing that foundation with an in-house orchestrator
+                as our needs outgrew it. RAG pipelines, AI agents, and the AWS
+                infrastructure and CI/CD behind them now automate responses
+                for roughly 75% of cases and a large share of support email,
+                cutting turnaround from 72 hours to under 2.
               </p>
               <ul class="case-metrics">
                 <li><span class="metric-num">~45,000</span><span class="metric-lbl">tickets / month</span></li>
@@ -220,13 +214,15 @@
                 <span class="case-tag">Applied AI · 0 to 1</span>
               </div>
               <p class="case-copy">
-                A merchant-facing support chatbot built from the ground up,
-                giving merchants a self-serve, AI-first way to get answers
-                instead of opening a ticket.
+                A merchant-facing support chatbot built from the ground up on
+                LangGraph: multiple agents, each with their own set of tools,
+                coordinating to answer a merchant's question instead of
+                routing it to a ticket. Observability across the whole system
+                was built on Langfuse.
               </p>
               <ul class="case-metrics">
                 <li><span class="metric-num">0 to 1</span><span class="metric-lbl">built from scratch</span></li>
-                <li><span class="metric-num">AI-first</span><span class="metric-lbl">self-serve support</span></li>
+                <li><span class="metric-num">Multi-agent</span><span class="metric-lbl">LangGraph-based design</span></li>
               </ul>
             </article>
 
@@ -353,10 +349,6 @@
             <a class="contact-link" href="mailto:mohit.palan@gmail.com">
               <span class="contact-label">Email</span>
               <span class="contact-value">mohit.palan@gmail.com</span>
-            </a>
-            <a class="contact-link" href="tel:+918169602228">
-              <span class="contact-label">Phone</span>
-              <span class="contact-value">+91 81696 02228</span>
             </a>
             <a class="contact-link" href="https://www.linkedin.com/in/mohit-palan/" target="_blank" rel="noopener noreferrer">
               <span class="contact-label">LinkedIn</span>

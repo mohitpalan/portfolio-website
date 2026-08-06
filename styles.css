@@ -394,7 +394,12 @@ p {
 
 @media (min-width: 640px) {
   .highlight-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .highlight-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -426,49 +431,12 @@ p {
 --------------------------------------------------------- */
 .about-grid {
   display: grid;
-  gap: 40px;
+  gap: 20px;
 }
 .about-copy {
   max-width: 68ch;
   font-size: 1.05rem;
   line-height: 1.75;
-}
-.about-copy + .about-copy {
-  margin-top: 20px;
-}
-.about-facts {
-  display: grid;
-  gap: 20px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-.fact {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.fact-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.fact-value {
-  font-size: 0.98rem;
-  line-height: 1.5;
-}
-
-@media (min-width: 860px) {
-  .about-grid {
-    grid-template-columns: 1.4fr 1fr;
-  }
-  .about-facts {
-    border-top: none;
-    border-left: 1px solid var(--line);
-    padding-top: 0;
-    padding-left: 32px;
-  }
 }
 
 /* ---------------------------------------------------------
@@ -713,7 +681,7 @@ p {
 
 @media (min-width: 640px) {
   .contact-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
