@@ -293,6 +293,16 @@ p {
   pointer-events: none;
   display: block;
 }
+/* Mobile browsers resize the visible viewport as their address
+   bar collapses/expands while scrolling, which this frame (sized
+   off clientWidth/clientHeight, recomputed on scroll) can't track
+   cleanly — it ends up looking broken mid-scroll on phones. Keep
+   it for desktop pointer/hover devices only. */
+@media (max-width: 859px), (hover: none) {
+  .scroll-progress {
+    display: none;
+  }
+}
 .progress-stop-1 {
   stop-color: var(--progress-start);
 }
