@@ -809,6 +809,9 @@ p {
   flex: none;
   gap: 20px;
 }
+.cookie-actions[hidden] {
+  display: none;
+}
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
   .hero-title .name-last {

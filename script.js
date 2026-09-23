@@ -135,8 +135,11 @@ if (prefersReducedMotion) {
 (function () {
   var STORAGE_KEY = 'cookie-consent';
   var banner = document.getElementById('cookie-banner');
+  var consentActions = document.getElementById('cookie-actions-consent');
+  var noticeActions = document.getElementById('cookie-actions-notice');
   var acceptBtn = document.getElementById('cookie-accept');
   var declineBtn = document.getElementById('cookie-decline');
+  var okBtn = document.getElementById('cookie-ok');
 
   var CONSENT_REQUIRED_REGIONS = [
     'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE',
@@ -149,7 +152,7 @@ if (prefersReducedMotion) {
     stored = localStorage.getItem(STORAGE_KEY);
   } catch (e) {}
 
-  function setConsent(granted, source) {
+  function applyConsent(granted, source) {
     var state = granted ? 'granted' : 'denied';
     if (typeof gtag === 'function') {
       gtag('consent', 'update', {
@@ -158,31 +161,50 @@ if (prefersReducedMotion) {
         ad_personalization: state,
         analytics_storage: state
       });
+      if (granted) gtag('event', 'page_view');
     }
     try {
       localStorage.setItem(STORAGE_KEY, state);
       localStorage.setItem(STORAGE_KEY + '-source', source);
     } catch (e) {}
-    banner.hidden = true;
+  }
+
+  function showConsentBanner() {
+    banner.setAttribute('aria-label', 'Cookie consent');
+    consentActions.hidden = false;
+    noticeActions.hidden = true;
+    banner.hidden = false;
+  }
+
+  function showNoticeBanner() {
+    banner.setAttribute('aria-label', 'Cookie notice');
+    noticeActions.hidden = false;
+    consentActions.hidden = true;
+    banner.hidden = false;
   }
 
   acceptBtn.addEventListener('click', function () {
-    setConsent(true, 'user');
+    applyConsent(true, 'user');
+    banner.hidden = true;
   });
   declineBtn.addEventListener('click', function () {
-    setConsent(false, 'user');
+    applyConsent(false, 'user');
+    banner.hidden = true;
+  });
+  okBtn.addEventListener('click', function () {
+    banner.hidden = true;
   });
 
   if (stored) return;
 
   if (typeof fetch !== 'function') {
-    banner.hidden = false;
+    showConsentBanner();
     return;
   }
   var controller = typeof AbortController === 'function' ? new AbortController() : null;
   var timeoutId = setTimeout(function () {
     if (controller) controller.abort();
-    banner.hidden = false;
+    showConsentBanner();
   }, 1500);
 
   fetch('/cdn-cgi/trace', controller ? { signal: controller.signal } : undefined)
@@ -192,13 +214,14 @@ if (prefersReducedMotion) {
       var match = /^loc=([A-Z]{2})$/m.exec(text);
       var country = match ? match[1] : null;
       if (country && CONSENT_REQUIRED_REGIONS.indexOf(country) === -1) {
-        setConsent(true, 'geo-auto');
+        applyConsent(true, 'geo-auto');
+        showNoticeBanner();
       } else {
-        banner.hidden = false;
+        showConsentBanner();
       }
     })
     .catch(function () {
       clearTimeout(timeoutId);
-      banner.hidden = false;
+      showConsentBanner();
     });
 })();
