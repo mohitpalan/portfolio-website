@@ -133,6 +133,44 @@ if (prefersReducedMotion) {
 })();
 
 (function () {
+  function track(name, params) {
+    if (typeof gtag === 'function') gtag('event', name, params);
+  }
+
+  document.querySelectorAll('.primary-nav a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      track('nav_click', { link_label: link.textContent.trim() });
+    });
+  });
+
+  document.querySelectorAll('.hero-actions a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      track('hero_cta_click', { link_label: link.textContent.trim() });
+    });
+  });
+
+  document.querySelectorAll('.contact-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var label = link.querySelector('.contact-label');
+      track('contact_click', { channel: label ? label.textContent.trim() : link.href });
+    });
+  });
+
+  var caseGrid = document.querySelector('.case-grid');
+  if (caseGrid) {
+    caseGrid.addEventListener('click', function (e) {
+      var card = e.target.closest('.case-card');
+      if (!card) return;
+      var title = card.querySelector('h3');
+      track('work_card_click', {
+        case_id: card.id,
+        case_title: title ? title.textContent.trim() : card.id
+      });
+    });
+  }
+})();
+
+(function () {
   var STORAGE_KEY = 'cookie-consent';
   var banner = document.getElementById('cookie-banner');
   var consentActions = document.getElementById('cookie-actions-consent');
