@@ -171,6 +171,28 @@ if (prefersReducedMotion) {
 })();
 
 (function () {
+  var emailLink = document.getElementById('email-link');
+  var toast = document.getElementById('email-toast');
+  var toastText = document.getElementById('email-toast-text');
+  if (!emailLink || !toast || !toastText) return;
+
+  var hideTimer;
+
+  emailLink.addEventListener('click', function () {
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    var email = emailLink.dataset.email;
+    navigator.clipboard.writeText(email).then(function () {
+      toastText.textContent = 'Yoinked into your clipboard. Now write something better than "Hi, I saw your portfolio."';
+      toast.classList.add('is-visible');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        toast.classList.remove('is-visible');
+      }, 4000);
+    }).catch(function () {});
+  });
+})();
+
+(function () {
   var STORAGE_KEY = 'cookie-consent';
   var banner = document.getElementById('cookie-banner');
   var consentActions = document.getElementById('cookie-actions-consent');

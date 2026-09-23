@@ -734,15 +734,26 @@ p {
   flex-direction: column;
 }
 .contact-link {
+  width: 100%;
   padding: 18px 0;
   border-top: 1px solid var(--line);
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  text-align: left;
   text-decoration: none;
+  font: inherit;
+  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 4px 16px;
   transition: color 0.15s ease;
+}
+#email-link .contact-value {
+  color: var(--accent-deep);
 }
 .contact-label {
   font-family: var(--font-mono);
@@ -811,6 +822,32 @@ p {
 }
 .cookie-actions[hidden] {
   display: none;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 96px;
+  z-index: 65;
+  max-width: min(90vw, 360px);
+  padding: 12px 18px;
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.toast-text {
+  color: var(--accent-deep);
+}
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {

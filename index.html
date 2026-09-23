@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=31" />
+    <link rel="stylesheet" href="styles.css?v=36" />
     <title>Mohit Palan, Software Engineer</title>
 
     <script type="application/ld+json">
@@ -402,10 +402,10 @@
           <h2 class="block-label"><span>Contact</span></h2>
           <h3 class="contact-title">Let's talk about what you're building.</h3>
           <div class="contact-grid">
-            <a class="contact-link" href="mailto:mohit.palan@gmail.com">
+            <button type="button" class="contact-link" id="email-link" data-email="mohit.palan@gmail.com">
               <span class="contact-label">Email</span>
               <span class="contact-value">mohit.palan@gmail.com</span>
-            </a>
+            </button>
             <a class="contact-link" href="https://www.linkedin.com/in/mohit-palan/" target="_blank" rel="noopener noreferrer">
               <span class="contact-label">LinkedIn</span>
               <span class="contact-value">in/mohit-palan</span>
@@ -435,6 +435,10 @@
       </div>
     </div>
 
-    <script src="script.js?v=30"></script>
+    <div class="toast" id="email-toast" role="status" aria-live="polite">
+      <span class="toast-text" id="email-toast-text"></span>
+    </div>
+
+    <script src="script.js?v=34"></script>
   </body>
 </html>
