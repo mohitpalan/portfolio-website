@@ -1,4 +1,3 @@
-// Mobile nav toggle
 var menuButton = document.getElementById('menu-toggle');
 var primaryNav = document.getElementById('primary-nav');
 
@@ -16,10 +15,8 @@ primaryNav.querySelectorAll('a').forEach(function (link) {
   });
 });
 
-// Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Scroll reveal for sections, skipped entirely for reduced-motion users
 var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var revealTargets = document.querySelectorAll(
   '.highlight-grid, .about-copy, .timeline-row, .case-card, .patent-callout, .stack-row, .contact-grid'
@@ -51,8 +48,6 @@ if (prefersReducedMotion) {
   });
 }
 
-// Scroll progress frame: traces clockwise around the whole
-// viewport edge as the reader scrolls down the page
 (function () {
   var svg = document.getElementById('scroll-progress');
   var rect = document.getElementById('scroll-progress-rect');
@@ -71,11 +66,6 @@ if (prefersReducedMotion) {
     rect.style.strokeDashoffset = String(perimeter * (1 - progress));
   }
 
-  // Recomputes width/height from scratch every time, not just on
-  // resize: mobile browsers grow/shrink the visible viewport as
-  // their address bar collapses while scrolling, often without
-  // firing a resize event, so a stale height would otherwise leave
-  // a gap between the frame and the true edge of the screen.
   function layout() {
     var w = document.documentElement.clientWidth;
     var h = document.documentElement.clientHeight;
@@ -109,7 +99,6 @@ if (prefersReducedMotion) {
   layout();
 })();
 
-// Active-section nav highlight, mirrors scroll position to the nav
 (function () {
   var navLinks = Array.prototype.slice.call(primaryNav.querySelectorAll('a'));
   var tracked = navLinks
@@ -143,19 +132,24 @@ if (prefersReducedMotion) {
   });
 })();
 
-// Cookie consent banner (Google Consent Mode v2)
 (function () {
   var STORAGE_KEY = 'cookie-consent';
   var banner = document.getElementById('cookie-banner');
   var acceptBtn = document.getElementById('cookie-accept');
   var declineBtn = document.getElementById('cookie-decline');
 
+  var CONSENT_REQUIRED_REGIONS = [
+    'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE',
+    'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT',
+    'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH'
+  ];
+
   var stored;
   try {
     stored = localStorage.getItem(STORAGE_KEY);
   } catch (e) {}
 
-  function setConsent(granted) {
+  function setConsent(granted, source) {
     var state = granted ? 'granted' : 'denied';
     if (typeof gtag === 'function') {
       gtag('consent', 'update', {
@@ -167,18 +161,44 @@ if (prefersReducedMotion) {
     }
     try {
       localStorage.setItem(STORAGE_KEY, state);
+      localStorage.setItem(STORAGE_KEY + '-source', source);
     } catch (e) {}
     banner.hidden = true;
   }
 
-  if (!stored) {
-    banner.hidden = false;
-  }
-
   acceptBtn.addEventListener('click', function () {
-    setConsent(true);
+    setConsent(true, 'user');
   });
   declineBtn.addEventListener('click', function () {
-    setConsent(false);
+    setConsent(false, 'user');
   });
+
+  if (stored) return;
+
+  if (typeof fetch !== 'function') {
+    banner.hidden = false;
+    return;
+  }
+  var controller = typeof AbortController === 'function' ? new AbortController() : null;
+  var timeoutId = setTimeout(function () {
+    if (controller) controller.abort();
+    banner.hidden = false;
+  }, 1500);
+
+  fetch('/cdn-cgi/trace', controller ? { signal: controller.signal } : undefined)
+    .then(function (res) { return res.text(); })
+    .then(function (text) {
+      clearTimeout(timeoutId);
+      var match = /^loc=([A-Z]{2})$/m.exec(text);
+      var country = match ? match[1] : null;
+      if (country && CONSENT_REQUIRED_REGIONS.indexOf(country) === -1) {
+        setConsent(true, 'geo-auto');
+      } else {
+        banner.hidden = false;
+      }
+    })
+    .catch(function () {
+      clearTimeout(timeoutId);
+      banner.hidden = false;
+    });
 })();
