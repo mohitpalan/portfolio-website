@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=28" />
+    <link rel="stylesheet" href="styles.css?v=29" />
     <title>Mohit Palan, Software Engineer</title>
 
     <script type="application/ld+json">
@@ -118,7 +118,7 @@
             <li>
               <a href="#about">
                 <span class="h-num">1</span>
-                <span class="h-lbl">Patent published: the Smart Safety Enhancement System</span>
+                <span class="h-lbl">Patent published</span>
               </a>
             </li>
             <li>
@@ -130,13 +130,13 @@
             <li>
               <a href="#work">
                 <span class="h-num">7</span>
-                <span class="h-lbl">Platforms shipped 0 to 1: routing, data platform, buyer care, onboarding, chatbot, sales navigator</span>
+                <span class="h-lbl">Platforms shipped 0&nbsp;→&nbsp;1</span>
               </a>
             </li>
             <li>
               <a href="#experience">
                 <span class="h-num">$90K+</span>
-                <span class="h-lbl">Saved annually through cross-project enhancements to PayU's support system</span>
+                <span class="h-lbl">Saved yearly through PayU support-system enhancements</span>
               </a>
             </li>
           </ul>
@@ -147,139 +147,122 @@
         <div class="section-inner">
           <h2 class="block-label"><span>What I've shipped</span></h2>
 
-          <div class="case-list">
-            <article class="case case-lead">
-              <span class="case-num">01</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Merchant Care, Automated</h3>
-                  <span class="case-tag">Applied AI · GenAI in production</span>
-                </div>
-                <p class="case-copy">
-                  PayU's Merchant Care queue was buried under tens of thousands
-                  of tickets a month. I built a GenAI system on AWS Bedrock and
-                  Google ADK, later replaced with an in-house orchestrator as
-                  we outgrew it. Python services, RAG pipelines, and agents now
-                  resolve about 75% of cases on their own, cutting turnaround
-                  from 72 hours to under 4.
-                </p>
-                <p class="case-metrics"><strong>~65,000</strong> tickets/month · <strong>75%</strong> auto-resolved · <strong>72h → 4h</strong> turnaround</p>
+          <div class="case-grid">
+            <article class="case-card" id="case-merchant-care">
+              <div class="case-card-top">
+                <span class="case-num">01</span>
+              </div>
+              <h3>Merchant Care, Automated</h3>
+              <span class="case-tag">Applied AI · GenAI in production</span>
+              <p class="case-oneline">GenAI system that resolves merchant-support tickets automatically, no human required for most cases.</p>
+              <p class="case-metrics"><strong>~65,000</strong> tickets/month · <strong>75%</strong> auto-resolved · <strong>72h → 4h</strong> turnaround</p>
+              <div class="case-chips">
+                <span class="chip">Python</span>
+                <span class="chip">AWS Bedrock</span>
+                <span class="chip">Google ADK</span>
+                <span class="chip">RAG</span>
+                <span class="chip">In-house orchestrator</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">02</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Merchant Onboarding, Rebuilt</h3>
-                  <span class="case-tag">Fintech UI</span>
-                </div>
-                <p class="case-copy">
-                  PayU's onboarding flow used to lose merchants partway
-                  through. I helped rebuild it from scratch. The new flow
-                  onboarded 2,400+ merchants in its first quarter alone.
-                </p>
-                <p class="case-metrics"><strong>2,400+</strong> merchants, Q1</p>
+            <article class="case-card" id="case-onboarding">
+              <div class="case-card-top">
+                <span class="case-num">02</span>
+              </div>
+              <h3>Merchant Onboarding, Rebuilt</h3>
+              <span class="case-tag">Fintech UI</span>
+              <p class="case-oneline">Rebuilt PayU's onboarding flow from scratch to stop merchants dropping off partway through.</p>
+              <p class="case-metrics"><strong>2,400+</strong> merchants, Q1</p>
+              <div class="case-chips">
+                <span class="chip">React</span>
+                <span class="chip">Onboarding UX</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">03</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Merchant Chatbot</h3>
-                  <span class="case-tag">Applied AI</span>
-                </div>
-                <p class="case-copy">
-                  A support chatbot built on LangGraph: several agents, each
-                  with their own tools, working together to answer a merchant
-                  directly instead of opening a ticket. Observability
-                  end-to-end on Langfuse.
-                </p>
-                <p class="case-metrics"><strong>47%</strong> of merchant interactions handled · <strong>38%</strong> fewer dashboard tickets</p>
+            <article class="case-card" id="case-chatbot">
+              <div class="case-card-top">
+                <span class="case-num">03</span>
+              </div>
+              <h3>Merchant Chatbot</h3>
+              <span class="case-tag">Applied AI</span>
+              <p class="case-oneline">Multi-agent support chatbot that answers merchants directly instead of opening a ticket.</p>
+              <p class="case-metrics"><strong>47%</strong> of merchant interactions handled · <strong>38%</strong> fewer dashboard tickets</p>
+              <div class="case-chips">
+                <span class="chip">LangGraph</span>
+                <span class="chip">Multi-agent</span>
+                <span class="chip">Langfuse</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">04</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Sales Navigator</h3>
-                  <span class="case-tag">Applied AI</span>
-                </div>
-                <p class="case-copy">
-                  A full-stack AI product for the sales team: structured
-                  discovery workflows and AI-assisted customer-fit scoring,
-                  cutting the time from first conversation to a fit
-                  assessment.
-                </p>
-                <p class="case-metrics"><strong>31%</strong> faster discovery-to-fit assessment</p>
+            <article class="case-card" id="case-sales-navigator">
+              <div class="case-card-top">
+                <span class="case-num">04</span>
+              </div>
+              <h3>Sales Navigator</h3>
+              <span class="case-tag">Applied AI</span>
+              <p class="case-oneline">Full-stack AI product for the sales team: structured discovery plus AI-assisted fit scoring.</p>
+              <p class="case-metrics"><strong>31%</strong> faster discovery-to-fit assessment</p>
+              <div class="case-chips">
+                <span class="chip">Full-stack AI</span>
+                <span class="chip">Fit scoring</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">05</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Data Platform</h3>
-                  <span class="case-tag">Data visualization</span>
-                </div>
-                <p class="case-copy">
-                  A self-serve data platform for merchants, with real
-                  visualizations over their own transaction data and the
-                  ability to run their own SQL against it directly.
-                </p>
-                <p class="case-metrics"><strong>Self-serve</strong> SQL querying</p>
+            <article class="case-card" id="case-data-platform">
+              <div class="case-card-top">
+                <span class="case-num">05</span>
+              </div>
+              <h3>Data Platform</h3>
+              <span class="case-tag">Data visualization</span>
+              <p class="case-oneline">Self-serve data platform: merchants visualize and query their own transaction data directly.</p>
+              <p class="case-metrics"><strong>Self-serve</strong> SQL querying</p>
+              <div class="case-chips">
+                <span class="chip">Data viz</span>
+                <span class="chip">SQL</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">06</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Buyer Care</h3>
-                  <span class="case-tag">Fintech UI</span>
-                </div>
-                <p class="case-copy">
-                  Built PayU's Buyer Care help center from the ground up:
-                  self-service workflows and user-event instrumentation for
-                  30K+ monthly users and 90K+ transactions tracked.
-                </p>
-                <p class="case-metrics"><strong>30K+</strong> monthly users · <strong>87%</strong> fewer tickets</p>
+            <article class="case-card" id="case-buyer-care">
+              <div class="case-card-top">
+                <span class="case-num">06</span>
+              </div>
+              <h3>Buyer Care</h3>
+              <span class="case-tag">Fintech UI</span>
+              <p class="case-oneline">Built PayU's Buyer Care help center from the ground up, with self-service workflows and event instrumentation.</p>
+              <p class="case-metrics"><strong>30K+</strong> monthly users · <strong>90K+</strong> transactions tracked · <strong>87%</strong> fewer tickets</p>
+              <div class="case-chips">
+                <span class="chip">Self-service UX</span>
+                <span class="chip">Instrumentation</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">07</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Maximizer</h3>
-                  <span class="case-tag">Payment routing</span>
-                </div>
-                <p class="case-copy">
-                  The entire frontend for Maximizer, so merchants can manage
-                  their payment aggregator routing across 30+ banks, with
-                  custom rules per payment instrument.
-                </p>
-                <p class="case-metrics"><strong>30+</strong> banks integrated</p>
+            <article class="case-card" id="case-maximizer">
+              <div class="case-card-top">
+                <span class="case-num">07</span>
+              </div>
+              <h3>Maximizer</h3>
+              <span class="case-tag">Payment routing</span>
+              <p class="case-oneline">Entire frontend for Maximizer: merchants manage payment-aggregator routing with custom rules.</p>
+              <p class="case-metrics"><strong>30+</strong> banks integrated</p>
+              <div class="case-chips">
+                <span class="chip">Payment routing</span>
+                <span class="chip">Custom rules</span>
               </div>
             </article>
 
-            <article class="case">
-              <span class="case-num">08</span>
-              <div class="case-body">
-                <div class="case-head">
-                  <h3>Finance Tracker</h3>
-                  <span class="case-tag">Side project · Android</span>
-                </div>
-                <p class="case-copy">
-                  An Android app that reads transaction SMS automatically, so
-                  expenses log themselves. Custom categories, budgets, and
-                  built-in splitting for shared costs.
-                </p>
-                <a class="case-link" href="https://play.google.com/store/apps/details?id=com.gameberrystudios.financetracker" target="_blank" rel="noopener noreferrer">
-                  View on Google Play
-                </a>
+            <article class="case-card" id="case-finance-tracker">
+              <div class="case-card-top">
+                <span class="case-num">08</span>
+              </div>
+              <h3>Finance Tracker</h3>
+              <span class="case-tag">Side project · Android</span>
+              <p class="case-oneline">Android app that reads transaction SMS automatically so expenses log themselves. Custom categories, budgets, and built-in splitting for shared costs.</p>
+              <a class="case-link" href="https://play.google.com/store/apps/details?id=com.gameberrystudios.financetracker" target="_blank" rel="noopener noreferrer">
+                View on Google Play
+              </a>
+              <div class="case-chips">
+                <span class="chip">Android</span>
+                <span class="chip">SMS parsing</span>
               </div>
             </article>
           </div>
@@ -289,24 +272,16 @@
       <section class="section section-muted" id="about">
         <div class="section-inner">
           <h2 class="block-label"><span>About</span></h2>
-          <div class="about-grid">
-            <p class="about-copy">
-              I'm a frontend-leaning engineer who has spent most of his career
-              where the UI can't afford to be wrong: payment flows, merchant
-              support, compliance workflows. PayU taught me how much
-              discipline sits behind a support ticket resolving itself, or an
-              onboarding form that doesn't lose someone's data halfway
-              through.
-            </p>
-            <p class="about-copy">
-              Now I'm at an early-stage AI startup, building the context layer
-              enterprises need to make sense of complex data, and helping
-              shape the shared design system along the way. Before that:
-              GenAI automation and a handful of 0-to-1 builds at PayU,
-              including systems that now handle a large share of a major
-              support queue on their own.
-            </p>
-          </div>
+          <p class="about-copy">
+            I'm a frontend-leaning engineer who has spent most of his career
+            where the UI can't afford to be wrong: payment flows, merchant
+            support, compliance workflows. PayU taught me how much
+            discipline sits behind a support ticket resolving itself, or an
+            onboarding form that doesn't lose someone's data halfway
+            through. Now I'm at an early-stage AI startup, building the
+            context layer enterprises need to make sense of complex data,
+            and helping shape the shared design system along the way.
+          </p>
           <div class="patent-callout">
             <span class="patent-label">Patent</span>
             <h3 class="patent-title">Smart Safety Enhancement System</h3>
@@ -329,32 +304,35 @@
               </div>
             </li>
 
-            <li class="timeline-row">
-              <div class="timeline-when">Apr 2025 – Feb 2026</div>
+            <li class="timeline-row timeline-row-group">
+              <div class="timeline-when">2023 – 2026</div>
               <div class="timeline-what">
-                <h3>SDE 2</h3>
-                <p class="timeline-org"><a href="https://www.payu.in" target="_blank" rel="noopener noreferrer">PayU Payments</a></p>
-                <p class="timeline-scope">Owned applied-AI and frontend work across Merchant Care, Onboarding, and Support, including most of what's in Selected Work above, plus a Figma-to-code pipeline for the team.</p>
-                <p class="timeline-awards-note">2× Quarterly Ace Award · 2× Extra Mile Award</p>
-              </div>
-            </li>
-
-            <li class="timeline-row">
-              <div class="timeline-when">Jul 2023 – Mar 2025</div>
-              <div class="timeline-what">
-                <h3>SDE 1</h3>
-                <p class="timeline-org"><a href="https://www.payu.in" target="_blank" rel="noopener noreferrer">PayU Payments</a></p>
-                <p class="timeline-scope">Primary frontend owner of PayU Insights and the Help Center, while contributing across Merchant Dashboards, Buyer Care, Onboarding, and PA Routing (Maximizer). Built 26% of the internal component library and helped redesign it, alongside peer reviews for engineering quality.</p>
-                <p class="timeline-awards-note">PayU Rising Star Award (2023–2024)</p>
-              </div>
-            </li>
-
-            <li class="timeline-row">
-              <div class="timeline-when">Jan 2023 – Jun 2023</div>
-              <div class="timeline-what">
-                <h3>SDE Intern</h3>
-                <p class="timeline-org"><a href="https://www.payu.in" target="_blank" rel="noopener noreferrer">PayU Payments</a></p>
-                <p class="timeline-scope">Built the PayU Buyer Care help center (see Buyer Care above), and worked across transaction, refund, and settlement dashboards. Expanded automated test coverage by 38% and 43% across two projects using Jest and Cypress.</p>
+                <h3>PayU Payments</h3>
+                <p class="timeline-org">
+                  <a href="https://www.payu.in" target="_blank" rel="noopener noreferrer">payu.in</a> · Intern → SDE 1 → SDE 2
+                </p>
+                <div class="payu-group">
+                  <div class="payu-sub">
+                    <div class="payu-when">Apr 2025 – Feb 2026</div>
+                    <h4>SDE 2</h4>
+                    <p class="timeline-scope">Owned applied-AI and frontend work across Merchant Care, Onboarding, and Support, plus a Figma-to-code pipeline for the team.</p>
+                    <p class="related-work">Related: <a href="#case-merchant-care">Merchant Care</a><a href="#case-onboarding">Onboarding</a></p>
+                    <p class="timeline-awards-note">2× Quarterly Ace Award · 2× Extra Mile Award</p>
+                  </div>
+                  <div class="payu-sub">
+                    <div class="payu-when">Jul 2023 – Mar 2025</div>
+                    <h4>SDE 1</h4>
+                    <p class="timeline-scope">Primary frontend owner of PayU Insights and the Help Center, while contributing across Merchant Dashboards, Buyer Care, Onboarding, and PA Routing. Built 26% of the internal component library and helped redesign it, alongside peer reviews for engineering quality.</p>
+                    <p class="related-work">Related: <a href="#case-buyer-care">Buyer Care</a><a href="#case-onboarding">Onboarding</a><a href="#case-maximizer">Maximizer</a></p>
+                    <p class="timeline-awards-note">PayU Rising Star Award (2023–2024)</p>
+                  </div>
+                  <div class="payu-sub">
+                    <div class="payu-when">Jan 2023 – Jun 2023</div>
+                    <h4>SDE Intern</h4>
+                    <p class="timeline-scope">Built the PayU Buyer Care help center, and worked across transaction, refund, and settlement dashboards. Expanded automated test coverage by 38% and 43% across two projects using Jest and Cypress.</p>
+                    <p class="related-work">Related: <a href="#case-buyer-care">Buyer Care</a></p>
+                  </div>
+                </div>
               </div>
             </li>
           </ol>
@@ -367,19 +345,55 @@
           <div class="stack-list">
             <div class="stack-row">
               <h3 class="stack-label">Frontend</h3>
-              <p class="stack-items">HTML, CSS, JavaScript, TypeScript, React, Next.js, Redux Toolkit, RTK Query, React Router, Tailwind CSS, Bootstrap, D3.js, Recharts, Figma</p>
+              <div class="stack-tags">
+                <span class="tag-chip">HTML</span>
+                <span class="tag-chip">CSS</span>
+                <span class="tag-chip">JavaScript</span>
+                <span class="tag-chip">TypeScript</span>
+                <span class="tag-chip">React</span>
+                <span class="tag-chip">Next.js</span>
+                <span class="tag-chip">Redux Toolkit</span>
+                <span class="tag-chip">RTK Query</span>
+                <span class="tag-chip">React Router</span>
+                <span class="tag-chip">Tailwind CSS</span>
+                <span class="tag-chip">Bootstrap</span>
+                <span class="tag-chip">D3.js</span>
+                <span class="tag-chip">Recharts</span>
+                <span class="tag-chip">Figma</span>
+              </div>
             </div>
             <div class="stack-row">
               <h3 class="stack-label">Applied AI</h3>
-              <p class="stack-items">Python, LangChain, AWS Bedrock, Google ADK, Qdrant, Pinecone, MCP</p>
+              <div class="stack-tags">
+                <span class="tag-chip">Python</span>
+                <span class="tag-chip">LangChain</span>
+                <span class="tag-chip">AWS Bedrock</span>
+                <span class="tag-chip">Google ADK</span>
+                <span class="tag-chip">Qdrant</span>
+                <span class="tag-chip">Pinecone</span>
+                <span class="tag-chip">MCP</span>
+              </div>
             </div>
             <div class="stack-row">
               <h3 class="stack-label">Testing</h3>
-              <p class="stack-items">Jest, React Testing Library, Cypress, Playwright, Storybook</p>
+              <div class="stack-tags">
+                <span class="tag-chip">Jest</span>
+                <span class="tag-chip">React Testing Library</span>
+                <span class="tag-chip">Cypress</span>
+                <span class="tag-chip">Playwright</span>
+                <span class="tag-chip">Storybook</span>
+              </div>
             </div>
             <div class="stack-row">
               <h3 class="stack-label">Infrastructure</h3>
-              <p class="stack-items">AWS (EC2, Lambda, S3, SQS, CloudWatch), Webpack, Vite, Jenkins, Git, CI/CD</p>
+              <div class="stack-tags">
+                <span class="tag-chip">AWS (EC2, Lambda, S3, SQS, CloudWatch)</span>
+                <span class="tag-chip">Webpack</span>
+                <span class="tag-chip">Vite</span>
+                <span class="tag-chip">Jenkins</span>
+                <span class="tag-chip">Git</span>
+                <span class="tag-chip">CI/CD</span>
+              </div>
             </div>
           </div>
         </div>
@@ -420,6 +434,6 @@
       </div>
     </div>
 
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=26"></script>
   </body>
 </html>

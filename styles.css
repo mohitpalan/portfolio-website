@@ -5,10 +5,18 @@
    reference swatch, which is far too light to pass contrast as
    text), and the pale blue reserved for small decorative
    moments only (the status dot, the scroll-progress frame) for
-   the same reason. No cards, no shadows, no glass/blur, no
-   decorative background blobs. Two exceptions stay solid on
-   purpose regardless: the focus outline and the text-selection
+   the same reason. No shadows, no glass/blur, no decorative
+   background blobs. Two exceptions stay solid on purpose
+   regardless: the focus outline and the text-selection
    highlight. Hero CTAs are plain underlined links, not buttons.
+
+   Density pass: the Work section became a hairline-bordered
+   card grid (same border treatment as the patent callout, no
+   shadow/radius) so the eight cases scan in a glance instead of
+   a long scroll of paragraphs. Highlights, About, Experience and
+   Stack were deduplicated and restructured around the same
+   principle: every fact from the previous copy stays, just
+   scannable at a glance instead of read as prose.
 
    Earlier passes (a flat green theme with glass/blur/shadow-
    cards, an indigo+rust duotone re-skin of a card-grid
@@ -502,21 +510,10 @@ p {
 /* ---------------------------------------------------------
    About, including the compact patent callout
 --------------------------------------------------------- */
-.about-grid {
-  display: grid;
-  gap: 24px;
-}
 .about-copy {
   max-width: 66ch;
   font-size: 1.05rem;
   line-height: 1.75;
-}
-
-@media (min-width: 860px) {
-  .about-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
 }
 
 .patent-callout {
@@ -627,65 +624,101 @@ p {
   }
 }
 
-/* ---------------------------------------------------------
-   Case studies (work): a plain numbered list, the lead case
-   is the second deliberate bold moment: a solid accent
-   numeral and a larger heading, nothing else.
---------------------------------------------------------- */
-.case-list {
-  display: flex;
-  flex-direction: column;
+/* PayU role progression: Intern → SDE 1 → SDE 2 grouped under
+   one timeline row instead of three, each sub-role linking out
+   to the Work cases it owns instead of restating them. */
+.payu-group {
+  border: 1px solid var(--line);
+  padding: 4px 24px;
+  margin-top: 16px;
 }
-.case {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 24px;
-  padding: 36px 0;
+.payu-sub {
+  padding: 20px 0;
   border-top: 1px solid var(--line);
 }
-.case:first-child {
+.payu-sub:first-child {
   border-top: none;
-  padding-top: 0;
+}
+.payu-when {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.payu-sub h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.related-work {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.related-work a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-right: 14px;
+}
+
+/* ---------------------------------------------------------
+   Case studies (work): a hairline-bordered card grid, same
+   border treatment as the patent callout (no shadow/radius).
+   Every card carries the same fields: number + tag, title,
+   one-line summary, the full metrics line, tech chips.
+--------------------------------------------------------- */
+.case-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 640px) {
+  .case-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .case-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line-strong);
+  padding: 24px;
+}
+.case-card-top {
+  margin-bottom: 8px;
 }
 .case-num {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-variant-numeric: tabular-nums;
   color: var(--accent);
   line-height: 1;
 }
-.case-body {
-  min-width: 0;
-}
-.case-lead .case-num {
-  font-weight: 700;
-}
-.case-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 14px;
-  margin-bottom: 12px;
-}
-.case-head h3 {
-  font-size: 1.3rem;
+.case-card h3 {
+  font-size: 1.15rem;
   font-weight: 600;
-}
-.case-lead .case-head h3 {
-  font-size: 1.6rem;
+  margin-bottom: 4px;
 }
 .case-tag {
+  display: block;
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent-soft);
-  white-space: nowrap;
+  margin-bottom: 12px;
 }
-.case-copy {
-  max-width: 66ch;
-  font-size: 1rem;
-  line-height: 1.7;
+.case-oneline {
+  font-size: 0.94rem;
+  line-height: 1.6;
   margin-bottom: 14px;
 }
 .case-metrics {
@@ -693,6 +726,7 @@ p {
   font-size: 12px;
   letter-spacing: 0.02em;
   color: var(--muted);
+  margin-bottom: 14px;
 }
 .case-metrics strong {
   color: var(--ink);
@@ -700,25 +734,34 @@ p {
 }
 .case-link {
   display: inline-block;
-  margin-top: 4px;
+  margin-bottom: 14px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-color: var(--accent);
 }
-
-@media (max-width: 479px) {
-  .case {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
+.case-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
 }
 
 /* ---------------------------------------------------------
-   Stack: stacked hairline rows, matching the Experience
-   timeline rhythm rather than a boxed card grid.
+   Stack: hairline rows (matching the Experience timeline
+   rhythm), each holding its items as small wrapping tags
+   instead of a long comma-separated sentence.
 --------------------------------------------------------- */
 .stack-list {
   display: flex;
@@ -741,11 +784,18 @@ p {
   text-transform: uppercase;
   color: var(--accent);
   font-weight: 500;
+  margin-bottom: 10px;
 }
-.stack-items {
-  font-size: 0.98rem;
-  line-height: 1.7;
-  max-width: 64ch;
+.stack-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tag-chip {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
   color: var(--ink);
 }
 

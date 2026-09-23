@@ -22,7 +22,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Scroll reveal for sections, skipped entirely for reduced-motion users
 var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var revealTargets = document.querySelectorAll(
-  '.highlight-grid, .about-grid, .timeline-row, .case, .patent-callout, .stack-row, .contact-grid'
+  '.highlight-grid, .about-copy, .timeline-row, .case-card, .patent-callout, .stack-row, .contact-grid'
 );
 
 if (prefersReducedMotion) {
